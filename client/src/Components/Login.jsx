@@ -40,12 +40,10 @@ const Login = (props) => {
       ...Data,
       [e.target.name]: e.target.value,
     });
-    console.log(Data);
   };
 
   const sendData = async (e) => {
     e.preventDefault();
-    console.log("Disabled : ", e.target.disabled);
     e.target.disabled = true;
     e.target.value = "Logging In...";
     const { email, password } = Data;
@@ -56,12 +54,11 @@ const Login = (props) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methos": "GET,POST,PUT,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type,Authorization"
+        "Access-Control-Allow-Headers": "Content-Type,Authorization",
       },
       credentials: "include",
       body: JSON.stringify({ email, password }),
     });
-    console.log(res);
     e.target.disabled = false;
     e.target.value = "Login";
     if (res.status !== 200 && res.status !== 400) {
@@ -76,7 +73,6 @@ const Login = (props) => {
       return;
     }
     const resJson = await res.json();
-    console.log(resJson);
     if (resJson.message) {
       toast.success(resJson.message, {
         position: "top-center",
@@ -160,7 +156,8 @@ const Login = (props) => {
                           <NavLink
                             to="/signup"
                             className="loginredirect text-decoration-none"
-                          >Click Here
+                          >
+                            Click Here
                           </NavLink>
                         </u>
                       </span>

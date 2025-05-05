@@ -39,14 +39,12 @@ const Signup = (props) => {
   };
   const [Data, setData] = useState(initialvalue);
   const handleonchange = (e) => {
-    console.log("In handleonchange", e.target.name);
     if (e.target.name !== "image") {
       setData({
         ...Data,
         [e.target.name]: e.target.value,
       });
-    }
-    else {
+    } else {
       setData({
         ...Data,
         [e.target.name]: e.target.files[0],

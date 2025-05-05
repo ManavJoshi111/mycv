@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from "primereact/accordion";
 
 function Section4(props) {
   const initalValue = { projects: [...props.Info.projects] };
@@ -17,7 +17,6 @@ function Section4(props) {
       let dummy = [...Data.projects];
       dummy[index][name.slice(0, name.length - 1)] = value;
       setData({ ...Data, projects: dummy });
-      console.log("Data in handleChange", Data);
     };
     return Data.projects.map((item, index) => {
       return (
@@ -61,10 +60,10 @@ function Section4(props) {
         </>
       );
     });
-  }
+  };
   return (
     <>
-      <div className={props.page !== 3 ? "pgdisplay" : ""} >
+      <div className={props.page !== 3 ? "pgdisplay" : ""}>
         <Accordion>
           <AccordionTab header="Add Projects">
             {renderProjects()}
@@ -78,7 +77,7 @@ function Section4(props) {
                     ...prevInput,
                     projects: [
                       ...prevInput.projects,
-                      { title: "", description: "", link: "" }
+                      { title: "", description: "", link: "" },
                     ],
                   };
                 });
@@ -91,7 +90,6 @@ function Section4(props) {
       </div>
     </>
   );
-
 }
 
 export default Section4;
