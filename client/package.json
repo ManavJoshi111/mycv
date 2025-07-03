@@ -21,7 +21,8 @@
     "start": "vite start",
     "build": "vite build",
     "dev": "vite",
-    "format": "prettier --write ."
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
