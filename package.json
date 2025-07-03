@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "client": "pnpm --filter client dev",
+    "server": "pnpm --filter server dev",
+    "format": "pnpm --filter client format",
+    "format:fix": "pnpm --filter client format:fix",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "husky": "^9.1.7"
+  },
+  "lint-staged": {
+    "client/**/*.{js,jsx,ts,tsx,json,css,html,md}": [
+      "pnpm --filter client exec prettier --check"
+    ]
+  },
+  "devDependencies": {
+    "lint-staged": "^16.1.2"
+  }
+}
