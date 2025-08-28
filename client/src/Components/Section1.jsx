@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function Section1(props) {
   // console.log("Section1 :", props.Info);
@@ -14,7 +14,7 @@ function Section1(props) {
 
   const handleChange = (e) => {
     setData({ ...Data, [e.target.name]: e.target.value });
-  }
+  };
 
   useEffect(() => {
     props.getName(Data);
@@ -22,7 +22,7 @@ function Section1(props) {
 
   return (
     <>
-      <div className={props.page !== 0 ? "pgdisplay" : ""}>
+      <div className={props.page !== 0 ? 'pgdisplay' : ''}>
         <input
           type="text"
           className="form-control"
@@ -88,7 +88,6 @@ function Section1(props) {
       </div>
     </>
   );
-
 }
 
 export default Section1;

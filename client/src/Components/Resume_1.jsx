@@ -1,5 +1,5 @@
-import React from "react";
-import "../Styles/resume.css";
+import React from 'react';
+import '../Styles/resume.css';
 
 const Resume_1 = React.forwardRef((props, ref) => {
   return (
@@ -13,33 +13,49 @@ const Resume_1 = React.forwardRef((props, ref) => {
               </div>
               <ul className="p-0">
                 {props.data.email && (
-                  <li className="data"><i class="bi bi-envelope-fill">&nbsp; &nbsp;{props.data.email}</i></li>
+                  <li className="data">
+                    <i class="bi bi-envelope-fill">&nbsp; &nbsp;{props.data.email}</i>
+                  </li>
                 )}
-                {
-                  props.data.number && (
-                    <li>
-                      <i class="bi bi-telephone-fill text-light"></i>
-                      &nbsp;&nbsp;{props.data.number}
-                    </li>
-                  )
-                }
-                {
-                  props.data.address && (
-                    <li className="data"><i class="bi bi-geo-alt-fill">&nbsp; &nbsp;{props.data.address}</i></li>
-                  )
-                }
-                {
-                  props.data.portfolio && (
-                    <li className="data"><i class="bi bi-link">&nbsp; &nbsp;<a href={"https://" + props.data.portfolio} target="_blank" className="text-light">{props.data.portfolio}</a></i></li>
-                  )
-                }
-                {
-                  props.data.github && (
-                    <li className="data">
-                      <i class="bi bi-github">&nbsp;&nbsp;<a href={"https://github.com/" + props.data.github} target="_blamnk" className="text-light">{props.data.github}</a></i>
-                    </li>
-                  )
-                }
+                {props.data.number && (
+                  <li>
+                    <i class="bi bi-telephone-fill text-light"></i>
+                    &nbsp;&nbsp;{props.data.number}
+                  </li>
+                )}
+                {props.data.address && (
+                  <li className="data">
+                    <i class="bi bi-geo-alt-fill">&nbsp; &nbsp;{props.data.address}</i>
+                  </li>
+                )}
+                {props.data.portfolio && (
+                  <li className="data">
+                    <i class="bi bi-link">
+                      &nbsp; &nbsp;
+                      <a
+                        href={'https://' + props.data.portfolio}
+                        target="_blank"
+                        className="text-light"
+                      >
+                        {props.data.portfolio}
+                      </a>
+                    </i>
+                  </li>
+                )}
+                {props.data.github && (
+                  <li className="data">
+                    <i class="bi bi-github">
+                      &nbsp;&nbsp;
+                      <a
+                        href={'https://github.com/' + props.data.github}
+                        target="_blamnk"
+                        className="text-light"
+                      >
+                        {props.data.github}
+                      </a>
+                    </i>
+                  </li>
+                )}
               </ul>
             </div>
             <div className="resume_item resume_social">
@@ -50,9 +66,10 @@ const Resume_1 = React.forwardRef((props, ref) => {
                 <li>
                   <div className="data">
                     <p className="semi-bold">
-                      {props.data.skills && props.data.skills.map((skill) => {
-                        return <span className="skill">{skill + "  "}</span>;
-                      })}
+                      {props.data.skills &&
+                        props.data.skills.map((skill) => {
+                          return <span className="skill">{skill + '  '}</span>;
+                        })}
                     </p>
                   </div>
                 </li>
@@ -64,9 +81,15 @@ const Resume_1 = React.forwardRef((props, ref) => {
                 <li>
                   <div className="data">
                     <p className="semi-bold">
-                      {props.data.certificates && props.data.certificates.map((certy) => {
-                        return <span className="skill">{certy + "  "}<br /></span>;
-                      })}
+                      {props.data.certificates &&
+                        props.data.certificates.map((certy) => {
+                          return (
+                            <span className="skill">
+                              {certy + '  '}
+                              <br />
+                            </span>
+                          );
+                        })}
                     </p>
                   </div>
                 </li>
@@ -74,9 +97,10 @@ const Resume_1 = React.forwardRef((props, ref) => {
               <div className="title">
                 <p className="bold">Achievements</p>
               </div>
-              {props.data.achievements && props.data.achievements.map((ach) => {
-                return (<p className="semi-bold">{ach + " "}</p>);
-              })}
+              {props.data.achievements &&
+                props.data.achievements.map((ach) => {
+                  return <p className="semi-bold">{ach + ' '}</p>;
+                })}
             </div>
           </div>
         </div>
@@ -107,26 +131,32 @@ const Resume_1 = React.forwardRef((props, ref) => {
             <div className="title">
               <p className="bold">Project</p>
             </div>
-            {props.data.projects && props.data.projects.map((project) => {
-              return (
-                <div className="info">
-                  <div className="d-flex justify-content-between">
-                    <p className="semi-bold">{project.title}</p>
-                    {/* <u><a className="institution" target="_blank" href={`${project.link}`} > Link</a></u> */}
-                    {project.link &&
-                      <p className="semi-bold td-underline"><a className="text-dark" href={`https://${project.link}`} target="_blank" ><u>Link</u></a></p>}
+            {props.data.projects &&
+              props.data.projects.map((project) => {
+                return (
+                  <div className="info">
+                    <div className="d-flex justify-content-between">
+                      <p className="semi-bold">{project.title}</p>
+                      {/* <u><a className="institution" target="_blank" href={`${project.link}`} > Link</a></u> */}
+                      {project.link && (
+                        <p className="semi-bold td-underline">
+                          <a className="text-dark" href={`https://${project.link}`} target="_blank">
+                            <u>Link</u>
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                    <p className="">{project.description}</p>
                   </div>
-                  <p className="">{project.description}</p>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className="resume_item resume_work">
             <div className="title">
               <p className="bold">Experience</p>
             </div>
-            {
-              props.data.experience && props.data.experience.map((exp) => {
+            {props.data.experience &&
+              props.data.experience.map((exp) => {
                 return (
                   <ul>
                     <li>
@@ -141,11 +171,10 @@ const Resume_1 = React.forwardRef((props, ref) => {
                     </li>
                   </ul>
                 );
-              })
-            }
+              })}
           </div>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 });

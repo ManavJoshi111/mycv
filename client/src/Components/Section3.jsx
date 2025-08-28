@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 
 function Section3(props) {
   // console.log("Props in section 3 : ", props);
   // const initialValue = { ...props.Info, ...props.Info.skills, ...props.Info.certificates };
-  const initialValue = { about: props.Info.about, collegesdate: props.Info.collegeedate, collegeedate: props.Info.collegeedate, cpi: props.Info.cpi, cname: props.Info.cname, experience: [...props.Info.experience] };
+  const initialValue = {
+    about: props.Info.about,
+    collegesdate: props.Info.collegeedate,
+    collegeedate: props.Info.collegeedate,
+    cpi: props.Info.cpi,
+    cname: props.Info.cname,
+    experience: [...props.Info.experience],
+  };
   let [Data, setData] = useState(initialValue);
   // console.log("Inital value in section 3 : ", Data);
 
@@ -32,14 +39,14 @@ function Section3(props) {
           <legend className="h5">Work Experience</legend>
           <input
             type="date"
-            name={"sdate" + index}
+            name={'sdate' + index}
             className="form-control col-sm-4 hori mr-2"
             value={Data.experience[index].sdate}
             onChange={handleChange}
           />
           <input
             type="date"
-            name={"edate" + index}
+            name={'edate' + index}
             className="form-control col-sm-4 hori ml-2"
             value={Data.experience[index].edate}
             onChange={handleChange}
@@ -51,7 +58,7 @@ function Section3(props) {
             placeholder="Company Name"
             required={true}
             autoFocus=""
-            name={"company" + index}
+            name={'company' + index}
             onChange={handleChange}
             value={Data.experience[index].company}
           />
@@ -62,17 +69,17 @@ function Section3(props) {
             placeholder="Position"
             required={true}
             autoFocus=""
-            name={"position" + index}
+            name={'position' + index}
             onChange={handleChange}
             value={Data.experience[index].position}
           />
         </fieldset>
       );
     });
-  }
+  };
   return (
     <>
-      <div className={props.page !== 2 ? "pgdisplay" : ""}>
+      <div className={props.page !== 2 ? 'pgdisplay' : ''}>
         <Accordion multiple>
           <AccordionTab header="About">
             <textarea
@@ -141,7 +148,7 @@ function Section3(props) {
                     ...prevInput,
                     experience: [
                       ...prevInput.experience,
-                      { company: "", position: "", sdate: "", edate: "" },
+                      { company: '', position: '', sdate: '', edate: '' },
                     ],
                   };
                 });
@@ -149,7 +156,7 @@ function Section3(props) {
             >
               +
             </button>
-          </AccordionTab >
+          </AccordionTab>
         </Accordion>
       </div>
     </>
