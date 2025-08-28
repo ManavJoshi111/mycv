@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
-import { toast } from "react-toastify";
-import signin from "../Images/sign_in.png";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import signin from '../Images/sign_in.png';
 
 const Signup = (props) => {
   const Authenticate = async () => {
     try {
       const res = await fetch(`${process.env.REACT_APP_SERVER_URL}makecv`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
+        credentials: 'include',
       });
       const resJson = await res.json();
-      if (resJson.message === "Authenticated") props.setToggle(true);
+      if (resJson.message === 'Authenticated') props.setToggle(true);
     } catch (err) {
       console.log(err);
     }
@@ -31,15 +25,15 @@ const Signup = (props) => {
   }, []);
   let navigate = useNavigate();
   const initialvalue = {
-    name: "",
-    email: "",
-    number: "",
-    password: "",
+    name: '',
+    email: '',
+    number: '',
+    password: '',
     image: null,
   };
   const [Data, setData] = useState(initialvalue);
   const handleonchange = (e) => {
-    if (e.target.name !== "image") {
+    if (e.target.name !== 'image') {
       setData({
         ...Data,
         [e.target.name]: e.target.value,
@@ -55,21 +49,21 @@ const Signup = (props) => {
   const sendData = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
-    e.target.value = "Signing Up...";
+    e.target.value = 'Signing Up...';
     const res = await fetch(`${process.env.REACT_APP_SERVER_URL}signup`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(Data),
-      credentials: "include",
+      credentials: 'include',
     });
     e.target.disabled = false;
-    e.target.value = "Sign Up";
+    e.target.value = 'Sign Up';
     const resJson = await res.json();
     if (resJson.message) {
       toast.success(resJson.message, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -77,11 +71,11 @@ const Signup = (props) => {
         progress: undefined,
       });
       props.setToggle(true);
-      navigate("../makecv", { replace: true });
+      navigate('../makecv', { replace: true });
     }
     if (resJson.error) {
       toast.error(resJson.error, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -98,11 +92,7 @@ const Signup = (props) => {
           <div className="row">
             <div className="col-md-6">
               <center>
-                <img
-                  src={signin}
-                  alt="Image"
-                  className="img-fluid cvimage mt-5 pt-5"
-                />
+                <img src={signin} alt="Image" className="img-fluid cvimage mt-5 pt-5" />
               </center>
             </div>
             <div className="col-md-6 contents mt-3">
@@ -158,10 +148,7 @@ const Signup = (props) => {
                       <span className="ml-auto">
                         Already Have Account ?&nbsp;
                         <u>
-                          <NavLink
-                            to="/login"
-                            className="loginredirect text-decoration-none"
-                          >
+                          <NavLink to="/login" className="loginredirect text-decoration-none">
                             Click Here
                           </NavLink>
                         </u>

@@ -1,111 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import {
-  BrowserRouter as Router,
-  Navigate,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
-import login from "../Images/log_in.png";
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import loginImage from '../Images/log_in.png';
+import useStore from '../store';
+import { errorToast, successToast } from '../utils';
 
 const Login = (props) => {
-  const Authenticate = async () => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}makecv`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      const resJson = await res.json();
-      if (resJson.message === "Authenticated") props.setToggle(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    Authenticate();
-  }, []);
+  const { login, loading } = useStore();
+
   let navigate = useNavigate();
   const initialData = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
-  const [Data, setData] = useState(initialData);
+  const [data, setData] = useState(initialData);
 
   const handleonchange = (e) => {
     setData({
-      ...Data,
+      ...data,
       [e.target.name]: e.target.value,
     });
   };
 
   const sendData = async (e) => {
     e.preventDefault();
-    e.target.disabled = true;
-    e.target.value = "Logging In...";
-    const { email, password } = Data;
-    let res;
-    res = await fetch(`${process.env.REACT_APP_SERVER_URL}login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methos": "GET,POST,PUT,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type,Authorization",
-      },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
-    e.target.disabled = false;
-    e.target.value = "Login";
-    if (res.status !== 200 && res.status !== 400) {
-      toast.error("Someting went wrong, Please try again after sometime", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return;
-    }
-    const resJson = await res.json();
-    if (resJson.message) {
-      toast.success(resJson.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
-      props.setToggle(true);
-      navigate("../makeCV", { replace: true });
-    }
-    if (resJson.error) {
-      toast.error(resJson.error, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (!resJson) {
-      toast.error("Something went wrong", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
+    e.target.value = 'Logging In...';
+    try {
+      await login(data);
+      successToast('Login Successful!');
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.log(err);
     }
   };
+
   return (
     <>
       <div className="content mt-5">
@@ -113,11 +40,7 @@ const Login = (props) => {
           <div className="row">
             <div className="col-md-6">
               <center>
-                <img
-                  src={login}
-                  alt="Image"
-                  className="img-fluid cvimage mt-5"
-                />
+                <img src={loginImage} alt="Image" className="img-fluid cvimage mt-5" />
               </center>
             </div>
             <div className="col-md-6 contents mt-5">
@@ -153,10 +76,7 @@ const Login = (props) => {
                       <span className="ml-auto">
                         Don't Have Account ?&nbsp;
                         <u>
-                          <NavLink
-                            to="/signup"
-                            className="loginredirect text-decoration-none"
-                          >
+                          <NavLink to="/signup" className="loginredirect text-decoration-none">
                             Click Here
                           </NavLink>
                         </u>
@@ -164,7 +84,7 @@ const Login = (props) => {
                     </div>
                     <input
                       type="submit"
-                      disabled={false}
+                      disabled={loading}
                       value="Log In"
                       className="btn btn-primary"
                       id="lbtn"

@@ -1,32 +1,20 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Loading from "../Images/Loading.gif";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../Images/Loading.gif';
+import useStore from '../store';
 
-const Logout = (props) => {
+const Logout = () => {
   const navigate = useNavigate();
-  //promises
+  const { logout } = useStore();
+
+  const doLogout = async () => {
+    await logout();
+  };
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}logout`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          props.setToggle(false);
-          navigate("../", {
-            replace: true,
-          });
-        }
-        if (res.status !== 200) throw new Error();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+    doLogout();
+    navigate('../', { replace: true });
+  }, []);
   return (
     <>
       <center>

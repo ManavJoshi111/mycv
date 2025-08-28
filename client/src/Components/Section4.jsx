@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Accordion, AccordionTab } from "primereact/accordion";
+import React, { useState, useEffect } from 'react';
+import { Accordion, AccordionTab } from 'primereact/accordion';
 
 function Section4(props) {
   const initalValue = { projects: [...props.Info.projects] };
@@ -30,7 +30,7 @@ function Section4(props) {
               placeholder="Project Title"
               required={true}
               autoFocus=""
-              name={"title" + index}
+              name={'title' + index}
               onChange={handleChange}
               value={Data.projects[index].title}
             />
@@ -41,7 +41,7 @@ function Section4(props) {
               placeholder="Project Description"
               required={true}
               autoFocus=""
-              name={"description" + index}
+              name={'description' + index}
               onChange={handleChange}
               value={Data.projects[index].description}
             />
@@ -52,7 +52,7 @@ function Section4(props) {
               placeholder="Project Link"
               required={true}
               autoFocus=""
-              name={"link" + index}
+              name={'link' + index}
               onChange={handleChange}
               value={Data.projects[index].link}
             />
@@ -63,7 +63,7 @@ function Section4(props) {
   };
   return (
     <>
-      <div className={props.page !== 3 ? "pgdisplay" : ""}>
+      <div className={props.page !== 3 ? 'pgdisplay' : ''}>
         <Accordion>
           <AccordionTab header="Add Projects">
             {renderProjects()}
@@ -75,10 +75,7 @@ function Section4(props) {
                 setData((prevInput) => {
                   return {
                     ...prevInput,
-                    projects: [
-                      ...prevInput.projects,
-                      { title: "", description: "", link: "" },
-                    ],
+                    projects: [...prevInput.projects, { title: '', description: '', link: '' }],
                   };
                 });
               }}

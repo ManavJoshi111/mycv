@@ -1,19 +1,14 @@
-import React, { useState } from "react";
-import "../Styles/form.css";
+import React, { useState } from 'react';
+import '../Styles/form.css';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import Section1 from "./Section1";
-import Section2 from "./Section2";
-import Section3 from "./Section3";
-import Section4 from "./Section4";
+import Section1 from './Section1';
+import Section2 from './Section2';
+import Section3 from './Section3';
+import Section4 from './Section4';
 
 const Form = (props) => {
   const [page, setPage] = useState(0);
-  const FormTitle = [
-    "Section 1",
-    "Section 2",
-    "Section 3",
-    "Sectionn 4",
-  ];
+  const FormTitle = ['Section 1', 'Section 2', 'Section 3', 'Sectionn 4'];
   return (
     <>
       <form className="form-signin ms-5 mt-2">

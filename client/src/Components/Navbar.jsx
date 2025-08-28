@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import Header from "./Header";
-import Login from "./Login";
-import Signup from "./Signup";
-import Mainpage from "./Mainpage";
-import Logout from "./Logout";
-import Profile from "./Profile";
-import "../Styles/navbar.css";
-import { Route, Routes, NavLink } from "react-router-dom";
-import logo from "../Images/myCV.png";
+import React, { useState } from 'react';
+import '../Styles/navbar.css';
+import { NavLink } from 'react-router-dom';
+import logo from '../Images/myCV.png';
 
 const Navbar = () => {
   const [Toggle, setToggle] = useState(false);
-  // console.log(Toggle);
+  // (Toggle);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
@@ -30,15 +24,12 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div
-            className="collapse navbar-collapse "
-            id="navbarSupportedContent"
-          >
+          <div className="collapse navbar-collapse " id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto me-5">
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    "nav-link active" + (isActive ? " active_class" : "")
+                    'nav-link active' + (isActive ? ' active_class' : '')
                   }
                   to="/"
                 >
@@ -48,9 +39,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    "nav-link active" +
-                    (isActive ? " active_class" : "") +
-                    (Toggle ? " notDisplay" : "")
+                    'nav-link active' +
+                    (isActive ? ' active_class' : '') +
+                    (Toggle ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/login"
@@ -61,9 +52,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    "nav-link active" +
-                    (isActive ? " active_class" : "") +
-                    (Toggle ? " notDisplay" : "")
+                    'nav-link active' +
+                    (isActive ? ' active_class' : '') +
+                    (Toggle ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/signup"
@@ -74,9 +65,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    "nav-link active" +
-                    (isActive ? " active_class" : "") +
-                    (!Toggle ? " notDisplay" : "")
+                    'nav-link active' +
+                    (isActive ? ' active_class' : '') +
+                    (!Toggle ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/profile"
@@ -87,9 +78,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    "nav-link active" +
-                    (isActive ? " active_class" : "") +
-                    (!Toggle ? " notDisplay" : "")
+                    'nav-link active' +
+                    (isActive ? ' active_class' : '') +
+                    (!Toggle ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/logout"
@@ -101,34 +92,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <Routes>
-        <Route exact path="/" element={<Header setToggle={setToggle} />}></Route>
-        <Route
-          exact
-          path="/login"
-          element={<Login setToggle={setToggle} />}
-        ></Route>
-        <Route
-          exact
-          path="/signup"
-          element={<Signup setToggle={setToggle} />}
-        ></Route>
-        <Route
-          exact
-          path="/makeCV"
-          element={<Mainpage setToggle={setToggle} />}
-        ></Route>
-        <Route
-          exact
-          path="/profile"
-          element={<Profile setToggle={setToggle} />}
-        ></Route>
-        <Route
-          exact
-          path="/logout"
-          element={<Logout setToggle={setToggle} Toggle={Toggle} />}
-        ></Route>
-      </Routes>
     </>
   );
 };
