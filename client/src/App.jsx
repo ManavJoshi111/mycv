@@ -8,7 +8,7 @@ import AppRoutes from './router';
 import useStore from './store';
 
 const App = () => {
-  const { authenticate, error, loading } = useStore();
+  const { authenticate, loading } = useStore();
 
   useEffect(() => {
     /**

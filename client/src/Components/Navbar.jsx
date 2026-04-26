@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import '../Styles/navbar.css';
 import { NavLink } from 'react-router-dom';
 import logo from '../Images/myCV.png';
+import useStore from '../store';
 
 const Navbar = () => {
-  const [Toggle, setToggle] = useState(false);
-  // (Toggle);
+  const { user } = useStore();
+  console.log('user in navbar : ', user);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
@@ -41,7 +41,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     'nav-link active' +
                     (isActive ? ' active_class' : '') +
-                    (Toggle ? ' notDisplay' : '')
+                    (user ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/login"
@@ -54,7 +54,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     'nav-link active' +
                     (isActive ? ' active_class' : '') +
-                    (Toggle ? ' notDisplay' : '')
+                    (user ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/signup"
@@ -67,7 +67,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     'nav-link active' +
                     (isActive ? ' active_class' : '') +
-                    (!Toggle ? ' notDisplay' : '')
+                    (!user ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/profile"
@@ -80,7 +80,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     'nav-link active' +
                     (isActive ? ' active_class' : '') +
-                    (!Toggle ? ' notDisplay' : '')
+                    (!user ? ' notDisplay' : '')
                   }
                   aria-current="page"
                   to="/logout"

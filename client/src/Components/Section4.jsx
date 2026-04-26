@@ -1,69 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
+import useStore from '../store';
 
-function Section4(props) {
-  const initalValue = { projects: [...props.Info.projects] };
-  const [Data, setData] = useState(initalValue);
+function Section4({ page }) {
+  const { cv, updateCvArrayItem, addCvArrayItem } = useStore();
 
-  useEffect(() => {
-    props.getName(Data);
-  }, [Data]);
+  const projects = cv.projects || [];
 
-  const renderProjects = () => {
-    const handleChange = (e) => {
-      let value = e.target.value;
-      let name = e.target.name;
-      let index = name.slice(name.length - 1);
-      let dummy = [...Data.projects];
-      dummy[index][name.slice(0, name.length - 1)] = value;
-      setData({ ...Data, projects: dummy });
-    };
-    return Data.projects.map((item, index) => {
-      return (
-        <>
-          <fieldset className="form-group border p-2 mt-3">
-            <legend className="h5">Project</legend>
-            <input
-              type="text"
-              className="form-control mt-2"
-              id="title1"
-              placeholder="Project Title"
-              required={true}
-              autoFocus=""
-              name={'title' + index}
-              onChange={handleChange}
-              value={Data.projects[index].title}
-            />
-            <input
-              type="text"
-              className="form-control mt-2"
-              id="title1"
-              placeholder="Project Description"
-              required={true}
-              autoFocus=""
-              name={'description' + index}
-              onChange={handleChange}
-              value={Data.projects[index].description}
-            />
-            <input
-              type="text"
-              className="form-control mt-2"
-              id="title1"
-              placeholder="Project Link"
-              required={true}
-              autoFocus=""
-              name={'link' + index}
-              onChange={handleChange}
-              value={Data.projects[index].link}
-            />
-          </fieldset>
-        </>
-      );
-    });
-  };
+  const renderProjects = () =>
+    projects.map((item, index) => (
+      <fieldset key={`project-${index}`} className="form-group border p-2 mt-3">
+        <legend className="h5">Project</legend>
+        <input
+          type="text"
+          className="form-control mt-2"
+          id="title1"
+          placeholder="Project Title"
+          required={true}
+          autoFocus=""
+          name={`title${index}`}
+          onChange={(e) => updateCvArrayItem('projects', index, e.target.value, 'title')}
+          value={projects[index]?.title || ''}
+        />
+        <input
+          type="text"
+          className="form-control mt-2"
+          id="title1"
+          placeholder="Project Description"
+          required={true}
+          autoFocus=""
+          name={`description${index}`}
+          onChange={(e) => updateCvArrayItem('projects', index, e.target.value, 'description')}
+          value={projects[index]?.description || ''}
+        />
+        <input
+          type="text"
+          className="form-control mt-2"
+          id="title1"
+          placeholder="Project Link"
+          required={true}
+          autoFocus=""
+          name={`link${index}`}
+          onChange={(e) => updateCvArrayItem('projects', index, e.target.value, 'link')}
+          value={projects[index]?.link || ''}
+        />
+      </fieldset>
+    ));
+
   return (
     <>
-      <div className={props.page !== 3 ? 'pgdisplay' : ''}>
+      <div className={page !== 3 ? 'pgdisplay' : ''}>
         <Accordion>
           <AccordionTab header="Add Projects">
             {renderProjects()}
@@ -71,14 +57,7 @@ function Section4(props) {
               type="button"
               className="btn btn-info mt-1 mb-2"
               id="pbtn"
-              onClick={(e) => {
-                setData((prevInput) => {
-                  return {
-                    ...prevInput,
-                    projects: [...prevInput.projects, { title: '', description: '', link: '' }],
-                  };
-                });
-              }}
+              onClick={() => addCvArrayItem('projects', { title: '', description: '', link: '' })}
             >
               +
             </button>

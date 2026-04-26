@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import signin from '../Images/sign_in.png';
+import useStore from '../store';
+import { errorToast, successToast } from '../utils';
 
-const Signup = (props) => {
-  const Authenticate = async () => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}makecv`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
-      const resJson = await res.json();
-      if (resJson.message === 'Authenticated') props.setToggle(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    Authenticate();
-  }, []);
+const Signup = () => {
+  const { signup, loading } = useStore();
   let navigate = useNavigate();
   const initialvalue = {
     name: '',
@@ -50,38 +33,15 @@ const Signup = (props) => {
     e.preventDefault();
     e.target.disabled = true;
     e.target.value = 'Signing Up...';
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(Data),
-      credentials: 'include',
-    });
-    e.target.disabled = false;
-    e.target.value = 'Sign Up';
-    const resJson = await res.json();
-    if (resJson.message) {
-      toast.success(resJson.message, {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
-      props.setToggle(true);
+    try {
+      const res = await signup(Data);
+      successToast(res?.message || 'Account created successfully');
       navigate('../makecv', { replace: true });
-    }
-    if (resJson.error) {
-      toast.error(resJson.error, {
-        position: 'top-center',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-      });
+    } catch (err) {
+      errorToast(err.message);
+    } finally {
+      e.target.disabled = false;
+      e.target.value = 'Sign Up';
     }
   };
 
@@ -156,7 +116,7 @@ const Signup = (props) => {
                     </div>
                     <input
                       type="submit"
-                      disabled={false}
+                      disabled={loading}
                       value="Sign Up"
                       className="btn btn-primary mb-3"
                       id="lbtn"

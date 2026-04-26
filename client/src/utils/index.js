@@ -16,7 +16,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log('Error in api call : ', error);
-    if (error.status === 401) {
+    if (error?.response?.status === 401) {
       await callApi('/logout', { method: 'GET' });
     }
     return Promise.reject(error);

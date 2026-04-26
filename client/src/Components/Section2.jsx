@@ -1,43 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
+import useStore from '../store';
 
-const Section2 = (props) => {
-  const initialValue = {
-    skills: [...props.Info.skills],
-    certificates: [...props.Info.certificates],
-    achievements: [...props.Info.achievements],
-  };
-  const [Data, setData] = useState(initialValue);
-  useEffect(() => {
-    props.getName(Data);
-  }, [Data]);
+const Section2 = ({ page }) => {
+  const { cv, updateCvArrayItem, addCvArrayItem } = useStore();
+
   const renderInput = (category) => {
-    const handleChange = (e) => {
-      const dummy = [...Data[category]];
-      dummy[e.target.name.slice(category.length)] = e.target.value;
-      setData({ ...Data, [category]: dummy });
-    };
-    // console.log("Data : ", Data);
+    const values = cv[category] || [];
 
-    return Data[category].map((item, index) => {
-      return (
-        <input
-          type="text"
-          className="form-control"
-          id="title1"
-          placeholder={'Enter ' + category}
-          required={true}
-          autoFocus=""
-          name={category + index}
-          onChange={handleChange}
-          value={Data[category][index]}
-        />
-      );
-    });
+    return values.map((item, index) => (
+      <input
+        key={`${category}-${index}`}
+        type="text"
+        className="form-control"
+        id="title1"
+        placeholder={`Enter ${category}`}
+        required={true}
+        autoFocus=""
+        name={`${category}${index}`}
+        onChange={(e) => updateCvArrayItem(category, index, e.target.value)}
+        value={values[index]}
+      />
+    ));
   };
+
   return (
     <>
-      <div className={props.page !== 1 ? 'pgdisplay ' : '' + 'inputdiv'}>
+      <div className={page !== 1 ? 'pgdisplay inputdiv' : 'inputdiv'}>
         <Accordion multiple>
           <AccordionTab header="Skills">
             {renderInput('skills')}
@@ -45,11 +34,7 @@ const Section2 = (props) => {
               type="button"
               className="btn btn-info mt-1 mb-2"
               id="pbtn"
-              onClick={(e) => {
-                setData((prevInput) => {
-                  return { ...prevInput, ['skills']: [...prevInput['skills'], e.target.value] };
-                });
-              }}
+              onClick={() => addCvArrayItem('skills', '')}
             >
               +
             </button>
@@ -60,14 +45,7 @@ const Section2 = (props) => {
               type="button"
               className="btn btn-info mt-1 mb-2"
               id="pbtn"
-              onClick={(e) => {
-                setData((prevInput) => {
-                  return {
-                    ...prevInput,
-                    ['certificates']: [...prevInput['certificates'], e.target.value],
-                  };
-                });
-              }}
+              onClick={() => addCvArrayItem('certificates', '')}
             >
               +
             </button>
@@ -78,14 +56,7 @@ const Section2 = (props) => {
               type="button"
               className="btn btn-info mt-1 mb-2"
               id="pbtn"
-              onClick={(e) => {
-                setData((prevInput) => {
-                  return {
-                    ...prevInput,
-                    ['achievements']: [...prevInput['achievements'], e.target.value],
-                  };
-                });
-              }}
+              onClick={() => addCvArrayItem('achievements', '')}
             >
               +
             </button>

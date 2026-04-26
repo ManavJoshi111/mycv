@@ -4,7 +4,7 @@ import loginImage from '../Images/log_in.png';
 import useStore from '../store';
 import { errorToast, successToast } from '../utils';
 
-const Login = (props) => {
+const Login = () => {
   const { login, loading } = useStore();
 
   let navigate = useNavigate();
@@ -29,7 +29,9 @@ const Login = (props) => {
       successToast('Login Successful!');
       navigate('/', { replace: true });
     } catch (err) {
-      console.log(err);
+      errorToast(err.message || 'Login failed');
+    } finally {
+      e.target.value = 'Log In';
     }
   };
 
